@@ -1,7 +1,7 @@
 import express from 'express';
 import { DEFAULT_PORT } from './config/env';
 import { listTaskMessages, sendRequest } from './utils/manus';
-const app = express();
+export const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
