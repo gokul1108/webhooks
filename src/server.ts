@@ -231,7 +231,9 @@ const waitForTaskOutput = async ({
     finalImageUrl: extractFinalImageUrl(latestMessages),
   };
 };
-
+app.get('/', (req, res) => {
+  res.json({ message: 'Welcome to the Manus Webhook Server' });
+});
 app.get('/health', (req, res) => {
   res.json({ status: 'ok' });
 });
