@@ -216,7 +216,14 @@ const waitForTaskOutput = async ({
   let latestMessages: unknown = null;
 
   while (Date.now() - start < timeoutMs) {
-    latestMessages = await listTaskMessages({ taskId, order: 'desc', limit: 20 });
+    try {
+      latestMessages = await listTaskMessages({ taskId, order: 'desc', limit: 20 });
+    } catch (error) {
+      console.error('Failed to poll task messages:', error);
+      await delay(intervalMs);
+      continue;
+    }
+
     const finalImageUrl =
       extractAssistantImageUrl(latestMessages) ?? extractFinalImageUrl(latestMessages);
     if (finalImageUrl) {
